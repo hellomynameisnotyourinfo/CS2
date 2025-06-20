@@ -1,0 +1,63 @@
+public class MyProgram extends ConsoleProgram
+{
+    public void run()
+    {
+      
+        
+        int[][] times = {
+            {0,  6,  12, 5},
+            {6,  0,  8,  9},
+            {12, 8,  0,  13},
+            {5,  9,  13, 0}
+        };
+
+ 
+        
+        String[] locations = {"Home", "Aldo", "Butch", "Cassidy"};
+
+      
+        int[][] routes = {
+            {1, 2, 3},
+            {1, 3, 2},
+            {2, 1, 3},
+            {2, 3, 1},
+            {3, 1, 2},
+            {3, 2, 1}
+        };
+        
+      
+        int[] bestroute = routes[0];
+        int shortesttime = 0;
+        
+      
+        shortesttime += times[0][bestroute[0]];
+        shortesttime += times[bestroute[0]][bestroute[1]];
+        shortesttime += times[bestroute[1]][bestroute[2]];
+        shortesttime += times[bestroute[2]][0];
+
+        for (int i = 1; i < routes.length; i++) {
+            int[] trial = routes[i];
+            int totaltime = 0;
+            
+            totaltime += times[0][trial[0]];
+            totaltime += times[trial[0]][trial[1]];
+            totaltime += times[trial[1]][trial[2]];
+            totaltime += times[trial[2]][0];
+            
+            if (totaltime < shortesttime) {
+                shortesttime = totaltime;
+                bestroute = trial;
+            }
+        }
+        
+        System.out.print("best route: home → ");
+        System.out.print(locations[bestroute[0]] + " → ");
+        System.out.print(locations[bestroute[1]] + " → ");
+        System.out.print(locations[bestroute[2]] + " → ");
+        System.out.println("home");
+        
+        System.out.println("total time: " + shortesttime);
+    }
+}
+
+
